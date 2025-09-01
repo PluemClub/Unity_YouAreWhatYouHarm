@@ -1,0 +1,53 @@
+using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
+
+public class FormWall : MonoBehaviour
+{
+    public GameObject Player;
+    public GameObject Animal;
+
+    public Animator transition;
+    public float transitionTime;
+
+    public GameObject Wall;
+    public AudioSource transformsound;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        //.SetActive(true);
+        //Animal.SetActive(false);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+    void OnTriggerEnter (Collider other)
+    {
+        /*transition.SetTrigger("Start");
+        Player.SetActive(false);
+
+        Animal.SetActive(true);
+        transition.SetTrigger("End");*/
+
+        StartCoroutine(Fading());
+
+    }
+
+    IEnumerator Fading()
+    {
+        transition.SetTrigger("Start");
+        transformsound.Play();
+        yield return new WaitForSeconds(transitionTime);
+        Player.SetActive(false);
+        Animal.SetActive(true);
+        transition.SetTrigger("End");
+
+        Destroy(Wall);
+    }
+}
