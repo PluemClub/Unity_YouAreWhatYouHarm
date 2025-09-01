@@ -1,0 +1,37 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Teleport : MonoBehaviour
+{
+    PlayerMovement playercontroller;
+
+    public int x, y, z;
+
+    void Start()
+    {
+        playercontroller = GetComponent<PlayerMovement>();
+    }
+
+    void Update()
+    {
+        
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Portal"))
+        {
+            StartCoroutine("Teleporting");
+        }
+    }
+    
+    IEnumerator Teleporting()
+    {
+        playercontroller.disable = true;
+        yield return new WaitForSeconds(0.1f);
+        gameObject.transform.position = new Vector3(x, y, z);
+        yield return new WaitForSeconds(0.1f);
+        playercontroller.disable = false;
+    }
+}
