@@ -1,0 +1,30 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using static System.TimeZoneInfo;
+
+public class BreakWall : MonoBehaviour
+{
+    public GameObject goodWall;
+    public GameObject brokeWall;
+    public float time;
+    public AudioSource breaking;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        goodWall.SetActive(true);
+        brokeWall.SetActive(false);
+    }
+
+    void OnCollisionEnter(Collision breakwall)
+    {
+        if (breakwall.gameObject.CompareTag("Player"))
+        {
+            //Debug.Log("Collide");
+            goodWall.SetActive(false);
+            breaking.Play();
+            brokeWall.SetActive(true);
+        }      
+    }
+}
