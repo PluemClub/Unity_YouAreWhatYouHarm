@@ -1,0 +1,21 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class SceneTime : MonoBehaviour
+{
+    public string NextLevel;
+    public float Timer;
+
+    // Update is called once per frame
+    void Update()
+    {
+        Timer -= Time.deltaTime;
+
+        if (Timer <= 0)
+        {
+            SceneManager.LoadScene(NextLevel);
+        }
+    }
+}
